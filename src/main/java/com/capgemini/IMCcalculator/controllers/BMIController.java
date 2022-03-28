@@ -1,5 +1,7 @@
 package com.capgemini.IMCcalculator.controllers;
 
+import com.capgemini.IMCcalculator.entities.BMIDto;
+import com.capgemini.IMCcalculator.entities.BMIEntity;
 import com.capgemini.IMCcalculator.services.BMIService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +18,7 @@ public class BMIController {
     }
 
     @GetMapping("/BMI")
-    public ResponseEntity<String> getBMI(@RequestParam String height,
+    public ResponseEntity<BMIDto> getBMI(@RequestParam String height,
                                          @RequestParam String mass) {
         return bmiService.calculateBMI(height, mass);
     }
