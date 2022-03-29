@@ -27,7 +27,7 @@ public class BMIController {
     }
 
     @GetMapping("/bmi")
-    public ResponseEntity<BMIDto> getBMI(@RequestParam
+    public ResponseEntity<BMIDto> getBMI(@RequestParam("height")
                                          @Valid
                                          @Pattern(
                                                   regexp = "^[1-9]",
@@ -36,11 +36,12 @@ public class BMIController {
                                                      message = "Height should be greater than zero")
                                          int height,
 
-                                         @RequestParam
+                                         @Valid
+                                         @RequestParam("mass")
                                          @Pattern(
                                                  regexp = "^0*[1-9]\\d*$",
                                                  message = "You should have entered numbers")
-                                         @Valid @DecimalMin(value = "0",
+                                         @DecimalMin(value = "0",
                                                  message = "Mass should be greater than zero")
                                          int mass) {
         return new ResponseEntity<>(bmiService.calculateBMI(height, mass), HttpStatus.OK);
