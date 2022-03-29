@@ -29,7 +29,7 @@ public class BMIService {
         BMICalculator = bmiCalculator;
     }
 
-    public ResponseEntity<BMIDto> calculateBMI(String heightInMeters, String massInKg) {
+    public BMIDto calculateBMI(int heightInCm, int massInKg) {
 //        try {
 //            validateNumber.isNotNumeric(heightInMeters);
 //            validateNumber.isNotNumeric(massInKg);
@@ -39,8 +39,8 @@ public class BMIService {
 //            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 //        }
 
-        double height = numberConverter.convertToNumber(heightInMeters);
-        double mass = numberConverter.convertToNumber(massInKg);
+//        int height = numberConverter.convertToNumber(heightInCm);
+//        int mass = numberConverter.convertToNumber(massInKg);
 
 //        try {
 //            greaterThanZero.isGreaterThanZero(height);
@@ -50,9 +50,9 @@ public class BMIService {
 //            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 //        }
 
-        String message = BMICalculator.calculateBMI(height, mass);
+        String message = BMICalculator.calculateBMI(heightInCm, massInKg);
 
-        return new ResponseEntity<>(new BMIDto(height, mass, message), HttpStatus.OK);
+        return new BMIDto(heightInCm, massInKg, message);
 
     }
 }

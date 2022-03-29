@@ -11,6 +11,6 @@ class BMICalculatorImplementationTest {
     @Test
     void calculateBMI() {
         assertEquals("IMC = 24,69 (Greutate normala - Fara risc de boala)",
-                calculator.calculateBMI(1.80, 80));
+                calculator.calculateBMI(180, 80));
     }
 }

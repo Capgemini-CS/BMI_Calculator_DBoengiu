@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class StringToNumberConverterImplementation implements  StringToNumberConverter{
     @Override
-    public double convertToNumber(String stringToNumber) {
-        return Double.parseDouble(stringToNumber);
+    public int convertToNumber(String stringToNumber) {
+        return Integer.parseInt(stringToNumber);
     }
 
     public StringToNumberConverterImplementation() {

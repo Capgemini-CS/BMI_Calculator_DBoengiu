@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 public class BMICalculatorImplementation implements BMICalculator{
 
     @Override
-    public String calculateBMI(double height, double mass) {
+    public String calculateBMI(int height, int mass) {
         double result;
-        result = mass / (height * height);
+        double heightInMetres = (double) height / 100;
+        result = mass / (heightInMetres * heightInMetres);
 
         String resultFormatted = String.format("%.2f", result);
 
