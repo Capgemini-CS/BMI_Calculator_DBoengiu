@@ -30,25 +30,6 @@ public class BMIService {
     }
 
     public BMIDto calculateBMI(int heightInCm, int massInKg) {
-//        try {
-//            validateNumber.isNotNumeric(heightInMeters);
-//            validateNumber.isNotNumeric(massInKg);
-//
-//        } catch (NumberFormatException e) {
-//            Logger.error(e.getMessage());
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-
-//        int height = numberConverter.convertToNumber(heightInCm);
-//        int mass = numberConverter.convertToNumber(massInKg);
-
-//        try {
-//            greaterThanZero.isGreaterThanZero(height);
-//            greaterThanZero.isGreaterThanZero(mass);
-//        } catch (NumberShouldBeGreaterThanZeroException e) {
-//            Logger.error(e.getMessage());
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
 
         String message = BMICalculator.calculateBMI(heightInCm, massInKg);
 
