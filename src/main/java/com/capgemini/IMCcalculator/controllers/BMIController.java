@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Pattern;
 
 @RestController
@@ -22,14 +23,20 @@ public class BMIController {
     }
 
     @GetMapping("/BMI")
-    public ResponseEntity<BMIDto> getBMI(@RequestParam @Pattern(
-                                                                regexp = "^[1-9]",
-                                                                message = "Height should be greater than zero")
+    public ResponseEntity<BMIDto> getBMI(@RequestParam
+                                         @Pattern(
+                                                  regexp = "^[1-9]",
+                                                  message = "You should have entered numbers")
+                                         @DecimalMin(value = "0.1",
+                                                     message = "Height should be greater than zero")
                                          String height,
 
-                                         @RequestParam @Pattern(
+                                         @RequestParam
+                                         @Pattern(
                                                  regexp = "^[1-9]",
-                                                 message = "Mass should be greater than zero")
+                                                 message = "You should have entered numbers")
+                                         @DecimalMin(value = "0.1",
+                                                     message = "Mass should be greater than zero")
                                          String mass) {
         return bmiService.calculateBMI(height, mass);
     }

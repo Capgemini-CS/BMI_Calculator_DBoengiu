@@ -30,25 +30,25 @@ public class BMIService {
     }
 
     public ResponseEntity<BMIDto> calculateBMI(String heightInMeters, String massInKg) {
-        try {
-            validateNumber.isNotNumeric(heightInMeters);
-            validateNumber.isNotNumeric(massInKg);
-
-        } catch (NumberFormatException e) {
-            Logger.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//        try {
+//            validateNumber.isNotNumeric(heightInMeters);
+//            validateNumber.isNotNumeric(massInKg);
+//
+//        } catch (NumberFormatException e) {
+//            Logger.error(e.getMessage());
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
 
         double height = numberConverter.convertToNumber(heightInMeters);
         double mass = numberConverter.convertToNumber(massInKg);
 
-        try {
-            greaterThanZero.isGreaterThanZero(height);
-            greaterThanZero.isGreaterThanZero(mass);
-        } catch (NumberShouldBeGreaterThanZeroException e) {
-            Logger.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//        try {
+//            greaterThanZero.isGreaterThanZero(height);
+//            greaterThanZero.isGreaterThanZero(mass);
+//        } catch (NumberShouldBeGreaterThanZeroException e) {
+//            Logger.error(e.getMessage());
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
 
         String message = BMICalculator.calculateBMI(height, mass);
 
