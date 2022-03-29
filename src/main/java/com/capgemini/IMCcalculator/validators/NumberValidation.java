@@ -1,5 +1,5 @@
 package com.capgemini.IMCcalculator.validators;
 
 public interface NumberValidation {
-    void isNotNumeric(String stringToNumber);
+    boolean isNotNumeric(String stringToNumber);
 }

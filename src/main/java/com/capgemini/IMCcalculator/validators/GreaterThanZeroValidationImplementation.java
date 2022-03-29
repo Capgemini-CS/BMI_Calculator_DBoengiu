@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class GreaterThanZeroValidationImplementation implements GreaterThanZeroValidation{
     @Override
-    public void isGreaterThanZero(double number) {
+    public boolean isGreaterThanZero(double number) {
         if (number <= 0) {
-            throw new NumberShouldBeGreaterThanZeroException("Introduced value should be greater than zero");
+            return false;
         }
+        return true;
     }
 }
