@@ -8,4 +8,7 @@ public class StringToNumberConverterImplementation implements  StringToNumberCon
     public double convertToNumber(String stringToNumber) {
         return Double.parseDouble(stringToNumber);
     }
+
+    public StringToNumberConverterImplementation() {
+    }
 }
