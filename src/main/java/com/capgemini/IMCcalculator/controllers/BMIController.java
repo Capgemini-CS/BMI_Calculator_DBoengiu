@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
@@ -29,21 +27,26 @@ public class BMIController {
     @GetMapping("/bmi")
     public ResponseEntity<BMIDto> getBMI(@RequestParam("height")
                                          @Valid
-                                         @Pattern(
-                                                  regexp = "^[1-9]",
-                                                  message = "You should have entered numbers")
+//                                         @Pattern(
+//                                                  regexp = "^[1-9]",
+//                                                  message = "You should have entered numbers")
                                          @DecimalMin(value = "0.1",
                                                      message = "Height should be greater than zero")
                                          int height,
 
                                          @Valid
                                          @RequestParam("mass")
-                                         @Pattern(
-                                                 regexp = "^0*[1-9]\\d*$",
-                                                 message = "You should have entered numbers")
+//                                         @Pattern(
+//                                                 regexp = "^0*[1-9]\\d*$",
+//                                                 message = "You should have entered numbers")
                                          @DecimalMin(value = "0",
                                                  message = "Mass should be greater than zero")
                                          int mass) {
         return new ResponseEntity<>(bmiService.calculateBMI(height, mass), HttpStatus.OK);
+    }
+
+    @PostMapping("/bmi")
+    public ResponseEntity<BMIDto> postBMI(@Validated @RequestBody BMIDto dto) {
+        return new ResponseEntity<>(bmiService.calculateBMI(dto.getHeight(), dto.getMass()), HttpStatus.OK);
     }
 }
