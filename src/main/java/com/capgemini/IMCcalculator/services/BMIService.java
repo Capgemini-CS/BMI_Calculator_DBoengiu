@@ -7,6 +7,7 @@ import com.capgemini.IMCcalculator.entities.BMIEntity;
 import com.capgemini.IMCcalculator.exceptions.NumberShouldBeGreaterThanZeroException;
 import com.capgemini.IMCcalculator.validators.GreaterThanZeroValidationImplementation;
 import com.capgemini.IMCcalculator.validators.NumberValidationImplementation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class BMIService {
     private final StringToNumberConverterImplementation numberConverter;
     private final BMICalculatorImplementation BMICalculator;
 
+    @Autowired
     public BMIService(NumberValidationImplementation validateNumber, GreaterThanZeroValidationImplementation greaterThanZero, StringToNumberConverterImplementation numberConverter, BMICalculatorImplementation bmiCalculator) {
         this.validateNumber = validateNumber;
         this.greaterThanZero = greaterThanZero;
