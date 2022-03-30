@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
@@ -43,7 +44,13 @@ public class BMIController {
     }
 
     @PostMapping("/bmi")
-    public ResponseEntity<BMIDto> postBMI(@Validated @RequestBody BMIDto dto) {
+    public ResponseEntity<BMIDto> postBMI(@Valid @RequestBody BMIDto dto) {
         return new ResponseEntity<>(bmiService.calculateBMI(dto.getHeight(), dto.getMass()), HttpStatus.OK);
     }
+
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+//        return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+//    }
 }

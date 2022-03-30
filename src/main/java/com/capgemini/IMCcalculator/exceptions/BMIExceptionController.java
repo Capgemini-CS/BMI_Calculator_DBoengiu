@@ -2,6 +2,7 @@ package com.capgemini.IMCcalculator.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -18,5 +19,7 @@ public class BMIExceptionController {
     public ResponseEntity<Object> checkIfIsGreaterThanZero(NumberShouldBeGreaterThanZeroException exception) {
         return new ResponseEntity<>("Introduced value should be greater than zero", HttpStatus.BAD_REQUEST);
     }
+
+
 
 }
