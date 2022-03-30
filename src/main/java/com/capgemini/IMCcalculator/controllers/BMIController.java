@@ -9,12 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 @RestController
+@Validated
 public class BMIController {
 
     private final BMIService bmiService;
@@ -26,23 +26,20 @@ public class BMIController {
 
     @GetMapping("/bmi")
     public ResponseEntity<BMIDto> getBMI(@RequestParam("height")
-                                         @Valid
-                                         @Pattern(
-                                                  regexp = "^[1-9]",
-                                                  message = "You should have entered numbers")
-                                         @DecimalMin(value = "0.1",
-                                                     message = "Height should be greater than zero")
+                                         @Min(1)
+                                         @Max(250)
                                          int height,
 
-                                         @Valid
                                          @RequestParam("mass")
-                                         @Pattern(
-                                                 regexp = "^0*[1-9]\\d*$",
-                                                 message = "You should have entered numbers")
-                                         @DecimalMin(value = "0",
-                                                 message = "Mass should be greater than zero", inclusive = false)
+                                         @Min(1)
                                          int mass) {
         return new ResponseEntity<>(bmiService.calculateBMI(height, mass), HttpStatus.OK);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
+        return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/bmi")
