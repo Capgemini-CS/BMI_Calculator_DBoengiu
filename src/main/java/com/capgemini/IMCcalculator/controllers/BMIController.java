@@ -2,9 +2,11 @@ package com.capgemini.IMCcalculator.controllers;
 
 import com.capgemini.IMCcalculator.entities.BMIDto;
 import com.capgemini.IMCcalculator.entities.BMIEntity;
+import com.capgemini.IMCcalculator.exceptions.ResponseClass;
 import com.capgemini.IMCcalculator.services.BMIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,18 +41,21 @@ public class BMIController {
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
-        return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+    ResponseEntity<ResponseClass> handleConstraintViolationException(ConstraintViolationException e) {
+        return new ResponseEntity<>(new ResponseClass(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/bmi")
+    @PostMapping(value = "/bmi",produces = { "application/json", "application/xml", "text/html" }, consumes = {
+            "application/json",
+            "application/xml",
+            "text/xml"})
     public ResponseEntity<BMIDto> postBMI(@Valid @RequestBody BMIDto dto) {
         return new ResponseEntity<>(bmiService.calculateBMI(dto.getHeight(), dto.getMass()), HttpStatus.OK);
     }
 
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-//        return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-//    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<ResponseClass> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        return new ResponseEntity<>(new ResponseClass(e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
 }
